@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>拾衣 · 我的衣橱</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Noto Serif SC', Georgia, serif; background: #F7F5F0; color: #2A2520; min-height: 100vh; }
+    input, select, button, textarea { font-family: inherit; }
+    input:focus, select:focus { outline: 2px solid #2A2520; outline-offset: 1px; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 14px; }
+    .outfit-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px; }
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+    .stat-row { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 28px; }
+    .stat-card { background: #FDFCF9; border: 1px solid #E8E2D8; border-radius: 10px; padding: 16px 20px; flex: 1; min-width: 120px; }
+    .stat-num { font-size: 26px; font-weight: 300; letter-spacing: -0.02em; margin-bottom: 4px; }
+    .stat-label { font-size: 11px; color: #9A9088; letter-spacing: 0.08em; }
+    .card { background: #FDFCF9; border: 1px solid #E8E2D8; border-radius: 10px; overflow: hidden; cursor: pointer; transition: box-shadow 0.2s; position: relative; }
+    .card:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
+    .card-img { height: 120px; display: flex; align-items: center; justify-content: center; font-size: 40px; overflow: hidden; }
+    .card-img img { width: 100%; height: 100%; object-fit: cover; }
+    .card-body { padding: 10px 12px; }
+    .card-name { font-size: 12px; font-weight: 500; margin-bottom: 3px; line-height: 1.4; }
+    .card-brand { font-size: 11px; color: #9A9088; }
+    .idle-badge { position: absolute; top: 8px; right: 8px; background: #E8C87A; border-radius: 10px; padding: 2px 8px; font-size: 10px; }
+    .color-dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; border: 1px solid rgba(0,0,0,0.12); margin-right: 5px; vertical-align: middle; flex-shrink: 0; }
+    .chip { padding: 6px 14px; border-radius: 20px; font-size: 12px; cursor: pointer; transition: all 0.2s; letter-spacing: 0.04em; }
+    .chip-active { border: 1px solid #2A2520; background: #2A2520; color: #F7F5F0; }
+    .chip-inactive { border: 1px solid #D8D2C8; background: transparent; color: #5A5248; }
+    .btn-primary { padding: 9px 20px; border: none; border-radius: 7px; background: #2A2520; color: #F7F5F0; font-size: 12px; cursor: pointer; letter-spacing: 0.06em; }
+    .btn-secondary { padding: 9px 20px; border: 1px solid #D8D2C8; border-radius: 7px; background: transparent; color: #5A5248; font-size: 12px; cursor: pointer; letter-spacing: 0.06em; }
+    .btn-danger { padding: 7px 14px; border: 1px solid #D8A8A0; border-radius: 7px; background: transparent; color: #C0504A; font-size: 11px; cursor: pointer; }
+    .modal-overlay { position: fixed; inset: 0; background: rgba(42,37,32,0.5); z-index: 200; display: flex; align-items: center; justify-content: center; padding: 20px; }
+    .modal-box { background: #FDFCF9; border-radius: 14px; padding: 28px; max-width: 520px; width: 100%; max-height: 85vh; overflow-y: auto; }
+    .label { display: block; font-size: 11px; color: #9A9088; letter-spacing: 0.08em; margin-bottom: 5px; margin-top: 14px; }
+    .input { width: 100%; padding: 9px 12px; border: 1px solid #D8D2C8; border-radius: 7px; font-size: 13px; background: #FDFCF9; box-sizing: border-box; }
+    .select { width: 100%; padding: 9px 12px; border: 1px solid #D8D2C8; border-radius: 7px; font-size: 13px; background: #FDFCF9; box-sizing: border-box; }
+    .section-title { font-size: 13px; font-weight: 500; letter-spacing: 0.08em; color: #5A5248; margin: 0 0 12px; text-transform: uppercase; }
+    .outfit-card { background: #FDFCF9; border: 1px solid #E8E2D8; border-radius: 10px; padding: 14px 16px; cursor: pointer; transition: box-shadow 0.2s; }
+    .outfit-card:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
+    .wish-card { background: #FDFCF9; border: 1px solid #E8E2D8; border-radius: 10px; padding: 14px 16px; display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 8px; }
+    .badge { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 10px; margin-right: 4px; margin-top: 4px; }
+    .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px; }
+    .info-cell { background: #F7F5F0; border-radius: 8px; padding: 10px 12px; }
+    .info-key { font-size: 10px; color: #9A9088; margin-bottom: 2px; }
+    .info-val { font-size: 13px; }
+    .bar-bg { height: 4px; background: #E8E2D8; border-radius: 2px; }
+    .bar-fill { height: 100%; background: #2A2520; border-radius: 2px; transition: width 0.5s; }
+    .row { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 20px; align-items: center; }
+    .hidden { display: none; }
+    nav { border-bottom: 1px solid #D8D2C8; background: #FDFCF9; position: sticky; top: 0; z-index: 100; }
+    .nav-inner { max-width: 1100px; margin: 0 auto; display: flex; }
+    .nav-logo { padding: 14px 20px; font-size: 14px; font-weight: 500; letter-spacing: 0.1em; color: #2A2520; border-right: 1px solid #E8E2D8; }
+    .nav-btn { padding: 14px 22px; border: none; background: none; cursor: pointer; font-size: 13px; letter-spacing: 0.08em; border-bottom: 2px solid transparent; transition: all 0.2s; }
+    .nav-btn.active { color: #2A2520; border-bottom-color: #2A2520; }
+    .nav-btn:not(.active) { color: #9A9088; }
+    main { max-width: 1100px; margin: 0 auto; padding: 24px 20px; }
+    h1 { font-size: 22px; font-weight: 400; letter-spacing: 0.05em; margin: 0 0 6px; }
+    .sub { font-size: 12px; color: #9A9088; letter-spacing: 0.08em; margin: 0 0 24px; }
+    .upload-zone { width: 100%; border: 2px dashed #D8D2C8; border-radius: 10px; overflow: hidden; display: flex; flex-direction: column; align-items: center; justify-content: center; background: #F7F5F0; cursor: pointer; transition: border-color 0.2s; height: 120px; }
+    .upload-zone.has-img { border-color: #2A2520; height: auto; }
+    .upload-zone img { width: 100%; max-height: 200px; object-fit: cover; display: block; }
+    .upload-wrap { position: relative; }
+    .upload-clear { position: absolute; top: 8px; right: 8px; background: rgba(42,37,32,0.7); color: #fff; border: none; border-radius: 50%; width: 24px; height: 24px; cursor: pointer; font-size: 12px; display: flex; align-items: center; justify-content: center; }
+    .chips-wrap { display: flex; flex-wrap: wrap; gap: 6px; }
+    .items-selector { display: flex; flex-wrap: wrap; gap: 6px; max-height: 140px; overflow-y: auto; padding: 4px; }
+    .progress-row { margin-bottom: 10px; }
+    .progress-label { display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 4px; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <div class="nav-logo">拾衣</div>
+    <button class="nav-btn active" onclick="showPage('wardrobe')">单品</button>
+    <button class="nav-btn" onclick="showPage('outfits')">搭配实验室</button>
+    <button class="nav-btn" onclick="showPage('wishlist')">购物清单</button>
+    <button class="nav-btn" onclick="showPage('stats')">数据看板</button>
+  </div>
+</nav>
+
+<main>
+  <div id="page-wardrobe">
+    <h1>我的单品</h1>
+    <p class="sub" id="wardrobe-sub"></p>
+    <div class="row" style="justify-content:space-between">
+      <input class="input" style="max-width:220px" placeholder="搜索单品或品牌…" oninput="filterItems()" id="search-input" />
+      <button class="btn-primary" onclick="openModal('add-item-modal')">+ 添加单品</button>
+    </div>
+    <div class="row" id="cat-filters"></div>
+    <div class="row" id="sub-filters" style="margin-bottom:16px;display:none"></div>
+    <div class="grid" id="items-grid"></div>
+    <div id="no-items" class="hidden" style="text-align:center;padding:60px 0;color:#9A9088;font-size:13px">没有找到单品，快去添加吧 ✦</div>
+  </div>
+
+  <div id="page-outfits" class="hidden">
+    <h1>搭配实验室</h1>
+    <p class="sub" id="outfits-sub"></p>
+    <div class="row" style="justify-content:space-between;flex-wrap:wrap;gap:12px">
+      <div class="chips-wrap" id="scene-filters"></div>
+      <button class="btn-primary" onclick="openModal('add-outfit-modal')">+ 记录搭配</button>
+    </div>
+    <div class="outfit-grid" id="outfits-grid"></div>
+  </div>
+
+  <div id="page-wishlist" class="hidden">
+    <h1>购物清单</h1>
+    <p class="sub" id="wishlist-sub"></p>
+    <div style="display:flex;justify-content:flex-end;margin-bottom:20px">
+      <button class="btn-primary" onclick="openModal('add-wish-modal')">+ 添加心愿单</button>
+    </div>
+    <div id="wish-high"></div>
+    <div id="wish-mid"></div>
+    <div id="wish-low"></div>
+  </div>
+
+  <div id="page-stats" class="hidden">
+    <h1>数据看板</h1>
+    <p class="sub">了解你的衣橱</p>
+    <div class="stat-row" id="stats-cards"></div>
+    <div class="two-col" style="gap:16px;margin-bottom:24px">
+      <div style="background:#FDFCF9;border:1px solid #E8E2D8;border-radius:10px;padding:20px">
+        <div class="section-title">类别分布</div>
+        <div id="cat-breakdown"></div>
+      </div>
+      <div style="background:#FDFCF9;border:1px solid #E8E2D8;border-radius:10px;padding:20px">
+        <div class="section-title">闲置预警 (&gt;60天)</div>
+        <div id="idle-list"></div>
+      </div>
+    </div>
+    <div style="background:#FDFCF9;border:1px solid #E8E2D8;border-radius:10px;padding:20px">
+      <div class="section-title">最常穿的单品</div>
+      <div id="top-worn"></div>
+    </div>
+  </div>
+</main>
+
+<!-- ITEM DETAIL MODAL -->
+<div id="item-detail-modal" class="modal-overlay hidden" onclick="closeModal('item-detail-modal')">
+  <div class="modal-box" onclick="event.stopPropagation()">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px">
+      <div>
+        <div style="font-size:18px;font-weight:500;margin-bottom:4px" id="detail-name"></div>
+        <div style="font-size:12px;color:#9A9088" id="detail-meta"></div>
+      </div>
+      <div id="detail-img-wrap"></div>
+    </div>
+    <div class="info-grid" id="detail-info"></div>
+    <div style="background:#F0EDE8;border-radius:8px;padding:12px 14px;margin-bottom:16px">
+      <div style="font-size:11px;color:#9A9088;margin-bottom:4px">洗涤方式</div>
+      <div style="font-size:13px;font-weight:500;margin-bottom:4px" id="detail-wash-method"></div>
+      <div style="font-size:12px;color:#5A5248" id="detail-wash-note"></div>
+    </div>
+    <div id="detail-related"></div>
+    <div style="display:flex;justify-content:space-between;margin-top:8px">
+      <button class="btn-danger" onclick="deleteCurrentItem()">删除单品</button>
+      <button class="btn-secondary" onclick="closeModal('item-detail-modal')">关闭</button>
+    </div>
+  </div>
+</div>
+
+<!-- OUTFIT DETAIL MODAL -->
+<div id="outfit-detail-modal" class="modal-overlay hidden" onclick="closeModal('outfit-detail-modal')">
+  <div class="modal-box" onclick="event.stopPropagation()">
+    <div style="font-size:18px;font-weight:500;margin-bottom:4px" id="od-name"></div>
+    <div style="font-size:12px;color:#9A9088;margin-bottom:16px" id="od-meta"></div>
+    <div class="section-title">单品组合</div>
+    <div id="od-items"></div>
+    <div id="od-note"></div>
+    <div id="od-tags" style="margin-bottom:16px"></div>
+    <div style="display:flex;justify-content:space-between">
+      <button class="btn-danger" onclick="deleteCurrentOutfit()">删除搭配</button>
+      <button class="btn-secondary" onclick="closeModal('outfit-detail-modal')">关闭</button>
+    </div>
+  </div>
+</div>
+
+<!-- ADD ITEM MODAL -->
+<div id="add-item-modal" class="modal-overlay hidden" onclick="closeModal('add-item-modal')">
+  <div class="modal-box" onclick="event.stopPropagation()">
+    <div style="font-size:16px;font-weight:500;margin-bottom:16px">添加单品</div>
+
+    <div class="label">单品照片</div>
+    <div class="upload-wrap">
+      <label for="img-upload" style="display:block;cursor:pointer">
+        <div class="upload-zone" id="upload-zone">
+          <div style="font-size:28px;margin-bottom:6px">📷</div>
+          <div style="font-size:12px;color:#9A9088">点击上传照片</div>
+          <div style="font-size:11px;color:#B8B2A8;margin-top:2px">支持 JPG、PNG、WEBP</div>
+        </div>
+      </label>
+      <input id="img-upload" type="file" accept="image/*" style="display:none" onchange="handleImageUpload(event)" />
+      <button id="clear-img-btn" class="upload-clear hidden" onclick="clearImage()">✕</button>
+    </div>
+
+    <div class="label">单品名称 *</div>
+    <input class="input" id="ni-name" placeholder="如：拉夫劳伦白色针织衫" />
+    <div class="label">品牌</div>
+    <input class="input" id="ni-brand" placeholder="如：Ralph Lauren" />
+    <div class="two-col">
+      <div>
+        <div class="label">大类</div>
+        <select class="select" id="ni-cat" onchange="updateSubCat()"></select>
+      </div>
+      <div>
+        <div class="label">小类</div>
+        <select class="select" id="ni-sub"></select>
+      </div>
+    </div>
+    <div class="two-col">
+      <div>
+        <div class="label">颜色</div>
+        <div style="display:flex;gap:8px">
+          <input type="color" id="ni-color" value="#cccccc" style="width:40px;height:38px;border:1px solid #D8D2C8;border-radius:7px;cursor:pointer" />
+          <input class="input" id="ni-color-name" placeholder="颜色名称" style="flex:1" />
+        </div>
+      </div>
+      <div>
+        <div class="label">版型</div>
+        <select class="select" id="ni-fit">
+          <option>修身</option><option>标准</option><option>宽松</option><option>Oversize</option>
+        </select>
+      </div>
+    </div>
+    <div class="two-col">
+      <div>
+        <div class="label">材质</div>
+        <input class="input" id="ni-material" placeholder="如：亚麻、羊毛" />
+      </div>
+      <div>
+        <div class="label">购入时间</div>
+        <input class="input" type="month" id="ni-date" />
+      </div>
+    </div>
+    <div class="two-col">
+      <div>
+        <div class="label">购入价格（¥）</div>
+        <input class="input" type="number" id="ni-price" placeholder="0" />
+      </div>
+      <div>
+        <div class="label">洗涤方式</div>
+        <select class="select" id="ni-wash">
+          <option>手洗</option><option>机洗</option><option>干洗</option><option>不可水洗</option>
+        </select>
+      </div>
+    </div>
+    <div class="label">洗涤注意事项</div>
+    <input class="input" id="ni-wash-note" placeholder="如：冷水手洗，平铺晾干" />
+    <div class="label">适合季节</div>
+    <div class="chips-wrap" id="season-chips"></div>
+    <div style="display:flex;justify-content:flex-end;gap:10px;margin-top:20px">
+      <button class="btn-secondary" onclick="closeAddItem()">取消</button>
+      <button class="btn-primary" onclick="addItem()">添加</button>
+    </div>
+  </div>
+</div>
+
+<!-- ADD OUTFIT MODAL -->
+<div id="add-outfit-modal" class="modal-overlay hidden" onclick="closeModal('add-outfit-modal')">
+  <div class="modal-box" onclick="event.stopPropagation()">
+    <div style="font-size:16px;font-weight:500;margin-bottom:16px">记录搭配</div>
+    <div class="label">搭配名称 *</div>
+    <input class="input" id="no-name" placeholder="如：云南古镇出片套" />
+    <div class="two-col">
+      <div>
+        <div class="label">场景</div>
+        <select class="select" id="no-scene"></select>
+      </div>
+      <div>
+        <div class="label">评分</div>
+        <select class="select" id="no-rating">
+          <option value="5">★★★★★</option><option value="4">★★★★</option>
+          <option value="3">★★★</option><option value="2">★★</option><option value="1">★</option>
+        </select>
+      </div>
+    </div>
+    <div class="label">包含单品（可多选）</div>
+    <div class="items-selector" id="outfit-items-selector"></div>
+    <div class="label">备注</div>
+    <input class="input" id="no-note" placeholder="这套搭配的心得…" />
+    <div class="label">标签（用中文顿号分隔）</div>
+    <input class="input" id="no-tags" placeholder="出片、旅行、清爽" />
+    <div style="display:flex;justify-content:flex-end;gap:10px;margin-top:20px">
+      <button class="btn-secondary" onclick="closeModal('add-outfit-modal')">取消</button>
+      <button class="btn-primary" onclick="addOutfit()">保存</button>
+    </div>
+  </div>
+</div>
+
+<!-- ADD WISH MODAL -->
+<div id="add-wish-modal" class="modal-overlay hidden" onclick="closeModal('add-wish-modal')">
+  <div class="modal-box" onclick="event.stopPropagation()">
+    <div style="font-size:16px;font-weight:500;margin-bottom:16px">添加心愿单</div>
+    <div class="label">单品名称 *</div>
+    <input class="input" id="nw-name" placeholder="如：中长款半身裙（卡其色）" />
+    <div class="three-col">
+      <div>
+        <div class="label">类别</div>
+        <select class="select" id="nw-cat"></select>
+      </div>
+      <div>
+        <div class="label">优先级</div>
+        <select class="select" id="nw-priority">
+          <option>高</option><option>中</option><option>低</option>
+        </select>
+      </div>
+      <div>
+        <div class="label">类型</div>
+        <select class="select" id="nw-type">
+          <option>需求型</option><option>冲动型</option>
+        </select>
+      </div>
+    </div>
+    <div class="label">预算（¥）</div>
+    <input class="input" type="number" id="nw-budget" placeholder="0" />
+    <div class="label">备注</div>
+    <input class="input" id="nw-note" placeholder="为什么想买、参考链接等" />
+    <div style="display:flex;justify-content:flex-end;gap:10px;margin-top:20px">
+      <button class="btn-secondary" onclick="closeModal('add-wish-modal')">取消</button>
+      <button class="btn-primary" onclick="addWish()">添加</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const CATEGORIES = {
+  上衣: { icon:"👕", sub:["打底衫","T恤/短袖","衬衫","针织衫","卫衣","马甲/背心","特殊款"] },
+  外套: { icon:"🧥", sub:["羽绒服","棉服","风衣","夹克/工装","针织外套","冲锋衣","西装外套","衬衫外套"] },
+  裤子: { icon:"👖", sub:["牛仔裤","西装裤","运动裤","打底裤","阔腿裤/萝卜裤"] },
+  裙子: { icon:"👗", sub:["半身长裙","半身中裙","半身短裙","连衣裙"] },
+  鞋子: { icon:"👟", sub:["运动鞋","板鞋","厚底鞋","凉鞋/拖鞋","靴子","乐福鞋","高跟鞋"] },
+  帽子: { icon:"🧢", sub:["棒球帽/鸭舌帽","针织帽","渔夫帽","草帽","贝雷帽"] },
+  包:   { icon:"👜", sub:["手提包","单肩包","斜挎包","腰包","托特包","双肩包"] },
+  饰品: { icon:"💍", sub:["项链","耳环","手环/手链","戒指","丝巾/头巾","皮带","发饰","眼镜/墨镜"] },
+};
+const SCENES = ["日常校园","通勤/正式","聚会/约会","旅行","运动健身","居家","特殊活动"];
+const SEASONS = ["春","夏","秋","冬","四季"];
+
+const INIT_ITEMS = [
+  {id:1,name:"拉夫劳伦白色针织衫",brand:"Ralph Lauren",category:"上衣",sub:"针织衫",color:"#F5F5F0",colorName:"白色",season:["春","秋"],material:"棉",fit:"标准",buyDate:"2023-09",price:850,wearCount:12,lastWorn:"2024-03-20",status:"在穿",washMethod:"手洗",washNote:"冷水手洗，平铺晾干",image:null},
+  {id:2,name:"美津浓绿野仙踪",brand:"Mizuno",category:"鞋子",sub:"运动鞋",color:"#7A9E7E",colorName:"绿色",season:["四季"],material:"网布/橡胶",fit:"标准",buyDate:"2024-01",price:699,wearCount:45,lastWorn:"2024-03-25",status:"在穿",washMethod:"手洗",washNote:"湿布擦拭，避免泡水",image:null},
+  {id:3,name:"巴宝莉白色格子围巾",brand:"Burberry",category:"饰品",sub:"丝巾/头巾",color:"#F0EDE8",colorName:"米白格纹",season:["秋","冬","春"],material:"羊毛",fit:"标准",buyDate:"2023-11",price:3200,wearCount:28,lastWorn:"2024-03-22",status:"在穿",washMethod:"干洗",washNote:"建议干洗，避免缩水",image:null},
+  {id:4,name:"lulu scuba燕麦色卫衣",brand:"Lululemon",category:"上衣",sub:"卫衣",color:"#E8E0D5",colorName:"燕麦色",season:["春","秋","冬"],material:"棉混纺",fit:"修身",buyDate:"2023-12",price:1280,wearCount:20,lastWorn:"2024-03-18",status:"在穿",washMethod:"机洗",washNote:"冷水机洗，勿烘干",image:null},
+  {id:5,name:"YSL Niki小号",brand:"YSL",category:"包",sub:"单肩包",color:"#2C2C2C",colorName:"黑色",season:["四季"],material:"皮革",fit:"标准",buyDate:"2023-06",price:8900,wearCount:60,lastWorn:"2024-03-25",status:"在穿",washMethod:"不可水洗",washNote:"皮革护理膏定期保养",image:null},
+  {id:6,name:"45r焦糖色泡泡袖上衣",brand:"45rpm",category:"上衣",sub:"特殊款",color:"#C4854A",colorName:"焦糖色",season:["春","秋"],material:"亚麻",fit:"宽松",buyDate:"2024-01",price:1200,wearCount:5,lastWorn:"2024-02-14",status:"在穿",washMethod:"手洗",washNote:"亚麻冷水手洗，轻柔脱水",image:null},
+  {id:7,name:"白色褶子半身长裙",brand:"无品牌",category:"裙子",sub:"半身长裙",color:"#FFFFFF",colorName:"白色",season:["春","夏"],material:"雪纺",fit:"标准",buyDate:"2023-04",price:280,wearCount:8,lastWorn:"2024-01-20",status:"在穿",washMethod:"手洗",washNote:"冷水手洗，悬挂晾干",image:null},
+  {id:8,name:"supreme柠檬黄棒球帽",brand:"Supreme",category:"帽子",sub:"棒球帽/鸭舌帽",color:"#FFE135",colorName:"柠檬黄",season:["春","夏","秋"],material:"棉",fit:"标准",buyDate:"2022-08",price:520,wearCount:35,lastWorn:"2024-03-10",status:"在穿",washMethod:"手洗",washNote:"局部清洗，避免变形",image:null},
+];
+const INIT_OUTFITS = [
+  {id:1,name:"云南古镇出片套",scene:"旅行",items:[1,6,7,2],rating:5,date:"2024-03-31",note:"焦糖+薄荷绿+白色，凤阳邑背景完美",tags:["出片","云南","文艺"]},
+  {id:2,name:"日常清爽通勤",scene:"日常校园",items:[1,4,2],rating:4,date:"2024-03-15",note:"白针织+燕麦卫衣叠穿，干净有层次",tags:["极简","知性"]},
+];
+const INIT_WISHLIST = [
+  {id:1,name:"拉夫劳伦亚麻薄荷绿衬衫",category:"外套",priority:"高",type:"需求型",budget:900,note:"云南必备，适合冷白皮"},
+  {id:2,name:"中长款半身裙（卡其色）",category:"裙子",priority:"中",type:"需求型",budget:400,note:"填补中裙缺口"},
+  {id:3,name:"中长吊坠项链",category:"饰品",priority:"高",type:"需求型",budget:300,note:"和珍珠细链叠戴，娜娜风"},
+];
+
+function load(key, def) {
+  try { const v = localStorage.getItem(key); return v ? JSON.parse(v) : def; } catch { return def; }
+}
+function save(key, val) {
+  try { localStorage.setItem(key, JSON.stringify(val)); } catch {}
+}
+
+let items = load('wardrobe_items', INIT_ITEMS);
+let outfits = load('wardrobe_outfits', INIT_OUTFITS);
+let wishlist = load('wardrobe_wishlist', INIT_WISHLIST);
+let currentPage = 'wardrobe';
+let selectedCat = '全部';
+let selectedSub = '全部';
+let selectedScene = '全部';
+let selectedSeasons = [];
+let selectedOutfitItems = [];
+let currentItemId = null;
+let currentOutfitId = null;
+let imageDataUrl = null;
+
+function daysSince(d) { if(!d) return 999; return Math.floor((Date.now()-new Date(d))/86400000); }
+function catIcon(c) { return CATEGORIES[c]?.icon || '📦'; }
+function totalValue() { return items.reduce((a,b)=>a+(Number(b.price)||0),0); }
+function avgWear() { return items.length ? Math.round(items.reduce((a,b)=>a+b.wearCount,0)/items.length) : 0; }
+function idleItems() { return items.filter(i=>daysSince(i.lastWorn)>60); }
+
+function showPage(p) {
+  currentPage = p;
+  ['wardrobe','outfits','wishlist','stats'].forEach(pg => {
+    document.getElementById('page-'+pg).classList.toggle('hidden', pg!==p);
+  });
+  document.querySelectorAll('.nav-btn').forEach((btn,i) => {
+    btn.classList.toggle('active', ['wardrobe','outfits','wishlist','stats'][i]===p);
+  });
+  if(p==='wardrobe') renderWardrobe();
+  if(p==='outfits') renderOutfits();
+  if(p==='wishlist') renderWishlist();
+  if(p==='stats') renderStats();
+}
+
+function renderWardrobe() {
+  document.getElementById('wardrobe-sub').textContent = `${items.length} 件单品 · 共 ¥${totalValue().toLocaleString()}`;
+  renderCatFilters();
+  filterItems();
+}
+
+function renderCatFilters() {
+  const el = document.getElementById('cat-filters');
+  const cats = ['全部', ...Object.keys(CATEGORIES)];
+  el.innerHTML = cats.map(c => {
+    const icon = CATEGORIES[c]?.icon || '';
+    return `<button class="chip ${selectedCat===c?'chip-active':'chip-inactive'}" onclick="selectCat('${c}')">${icon} ${c}</button>`;
+  }).join('');
+}
+
+function selectCat(c) {
+  selectedCat = c; selectedSub = '全部';
+  renderCatFilters();
+  const subEl = document.getElementById('sub-filters');
+  if(c==='全部') { subEl.style.display='none'; subEl.innerHTML=''; }
+  else {
+    subEl.style.display='flex';
+    const subs = ['全部', ...(CATEGORIES[c]?.sub||[])];
+    subEl.innerHTML = subs.map(s =>
+      `<button class="chip ${selectedSub===s?'chip-active':'chip-inactive'}" onclick="selectSub('${s}')">${s}</button>`
+    ).join('');
+  }
+  filterItems();
+}
+
+function selectSub(s) {
+  selectedSub = s;
+  document.getElementById('sub-filters').querySelectorAll('.chip').forEach((btn,i) => {
+    const subs = ['全部', ...(CATEGORIES[selectedCat]?.sub||[])];
+    btn.className = `chip ${subs[i]===s?'chip-active':'chip-inactive'}`;
+  });
+  filterItems();
+}
+
+function filterItems() {
+  const search = document.getElementById('search-input').value.toLowerCase();
+  const filtered = items.filter(i => {
+    const catOk = selectedCat==='全部' || i.category===selectedCat;
+    const subOk = selectedSub==='全部' || i.sub===selectedSub;
+    const srOk = !search || i.name.toLowerCase().includes(search) || (i.brand||'').toLowerCase().includes(search);
+    return catOk && subOk && srOk;
+  });
+  const grid = document.getElementById('items-grid');
+  const noEl = document.getElementById('no-items');
+  if(!filtered.length) { grid.innerHTML=''; noEl.classList.remove('hidden'); return; }
+  noEl.classList.add('hidden');
+  grid.innerHTML = filtered.map(item => {
+    const idle = daysSince(item.lastWorn)>60;
+    const imgHtml = item.image
+      ? `<img src="${item.image}" alt="${item.name}" style="width:100%;height:100%;object-fit:cover" />`
+      : `<span style="font-size:40px">${catIcon(item.category)}</span>`;
+    const bg = item.image ? 'transparent' : item.color+'22';
+    return `<div class="card" onclick="openItemDetail(${item.id})">
+      <div class="card-img" style="background:${bg};padding:0">${imgHtml}</div>
+      ${idle?'<div class="idle-badge">闲置</div>':''}
+      <div class="card-body">
+        <div class="card-name">${item.name}</div>
+        <div class="card-brand">${item.brand||''}</div>
+        <div style="margin-top:6px;display:flex;align-items:center">
+          <span class="color-dot" style="background:${item.color}"></span>
+          <span style="font-size:10px;color:#9A9088">${item.colorName||''}</span>
+        </div>
+        <div style="font-size:10px;color:#9A9088;margin-top:4px">穿了 ${item.wearCount} 次</div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function openItemDetail(id) {
+  const item = items.find(i=>i.id===id);
+  if(!item) return;
+  currentItemId = id;
+  document.getElementById('detail-name').textContent = item.name;
+  document.getElementById('detail-meta').textContent = `${item.brand||''} · ${item.category} · ${item.sub}`;
+  const imgWrap = document.getElementById('detail-img-wrap');
+  if(item.image) {
+    imgWrap.innerHTML = `<img src="${item.image}" style="width:72px;height:72px;object-fit:cover;border-radius:8px;border:1px solid #E8E2D8;flex-shrink:0" />`;
+  } else {
+    imgWrap.innerHTML = `<div style="width:72px;height:72px;border-radius:8px;background:${item.color}33;display:flex;align-items:center;justify-content:center;font-size:36px;flex-shrink:0">${catIcon(item.category)}</div>`;
+  }
+  const infoData = [
+    ['材质',item.material],['版型',item.fit],
+    ['购入时间',item.buyDate],['购入价格',item.price?`¥${item.price}`:'—'],
+    ['适合季节',(item.season||[]).join('、')],['状态',item.status],
+    ['穿着次数',`${item.wearCount} 次`],
+    ['次均成本',item.price&&item.wearCount>0?`¥${Math.round(item.price/item.wearCount)}`:'—'],
+  ];
+  document.getElementById('detail-info').innerHTML = infoData.map(([k,v])=>`
+    <div class="info-cell"><div class="info-key">${k}</div><div class="info-val">${v||'—'}</div></div>`).join('');
+  document.getElementById('detail-wash-method').textContent = item.washMethod||'';
+  document.getElementById('detail-wash-note').textContent = item.washNote||'';
+  const related = outfits.filter(o=>o.items.includes(id));
+  document.getElementById('detail-related').innerHTML = related.length
+    ? `<div class="section-title">出现在以下搭配中</div>${related.map(o=>`<div style="font-size:12px;padding:6px 0;border-bottom:1px solid #F0EDE8;color:#5A5248">✦ ${o.name} <span style="color:#9A9088">· ${o.scene}</span></div>`).join('')}<div style="margin-bottom:16px"></div>`
+    : '';
+  openModal('item-detail-modal');
+}
+
+function deleteCurrentItem() {
+  if(!currentItemId) return;
+  items = items.filter(i=>i.id!==currentItemId);
+  save('wardrobe_items', items);
+  closeModal('item-detail-modal');
+  filterItems();
+  document.getElementById('wardrobe-sub').textContent = `${items.length} 件单品 · 共 ¥${totalValue().toLocaleString()}`;
+}
+
+function renderOutfits() {
+  document.getElementById('outfits-sub').textContent = `${outfits.length} 套造型记录`;
+  const sceneEl = document.getElementById('scene-filters');
+  sceneEl.innerHTML = ['全部',...SCENES].map(sc =>
+    `<button class="chip ${selectedScene===sc?'chip-active':'chip-inactive'}" onclick="selectScene('${sc}')">${sc}</button>`
+  ).join('');
+  const sceneSelect = document.getElementById('no-scene');
+  if(!sceneSelect.children.length) SCENES.forEach(sc=>{ const o=document.createElement('option'); o.textContent=sc; sceneSelect.appendChild(o); });
+  const filtered = outfits.filter(o=>selectedScene==='全部'||o.scene===selectedScene);
+  document.getElementById('outfits-grid').innerHTML = filtered.map(o => {
+    const stars = '★'.repeat(o.rating);
+    const itemChips = (o.items||[]).map(id=>{const it=items.find(i=>i.id===id); return it?`<span style="font-size:10px;background:#F0EDE8;padding:3px 8px;border-radius:10px">${it.name}</span>`:''}).join('');
+    const tags = (o.tags||[]).map(t=>`<span class="badge" style="background:#EAF0E8">#${t}</span>`).join('');
+    return `<div class="outfit-card" onclick="openOutfitDetail(${o.id})">
+      <div style="display:flex;justify-content:space-between;margin-bottom:8px">
+        <span style="font-size:13px;font-weight:500">${o.name}</span>
+        <span style="font-size:13px">${stars}</span>
+      </div>
+      <div style="font-size:11px;color:#9A9088;margin-bottom:8px">${o.scene} · ${o.date}</div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px">${itemChips}</div>
+      <div style="font-size:11px;color:#5A5248;font-style:italic">${o.note||''}</div>
+      <div style="margin-top:8px">${tags}</div>
+    </div>`;
+  }).join('');
+}
+
+function selectScene(sc) {
+  selectedScene = sc;
+  renderOutfits();
+}
+
+function openOutfitDetail(id) {
+  const o = outfits.find(x=>x.id===id);
+  if(!o) return;
+  currentOutfitId = id;
+  document.getElementById('od-name').textContent = o.name;
+  document.getElementById('od-meta').textContent = `${o.scene} · ${o.date} · ${'★'.repeat(o.rating)}`;
+  document.getElementById('od-items').innerHTML = (o.items||[]).map(iid=>{
+    const it=items.find(i=>i.id===iid);
+    return it?`<div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid #F0EDE8">
+      <span style="font-size:22px">${catIcon(it.category)}</span>
+      <div><div style="font-size:12px;font-weight:500">${it.name}</div><div style="font-size:11px;color:#9A9088">${it.brand||''}</div></div>
+    </div>`:''}).join('');
+  document.getElementById('od-note').innerHTML = o.note
+    ? `<div style="background:#F7F5F0;border-radius:8px;padding:12px 14px;margin:14px 0;font-size:12px;font-style:italic;color:#5A5248">"${o.note}"</div>` : '';
+  document.getElementById('od-tags').innerHTML = (o.tags||[]).map(t=>`<span class="badge" style="background:#EAF0E8">#${t}</span>`).join('');
+  openModal('outfit-detail-modal');
+}
+
+function deleteCurrentOutfit() {
+  outfits = outfits.filter(o=>o.id!==currentOutfitId);
+  save('wardrobe_outfits', outfits);
+  closeModal('outfit-detail-modal');
+  renderOutfits();
+}
+
+function renderWishlist() {
+  document.getElementById('wishlist-sub').textContent = `${wishlist.length} 件待购 · 预算 ¥${wishlist.reduce((a,b)=>a+(Number(b.budget)||0),0).toLocaleString()}`;
+  const nwCat = document.getElementById('nw-cat');
+  if(!nwCat.children.length) Object.keys(CATEGORIES).forEach(c=>{const o=document.createElement('option');o.textContent=c;nwCat.appendChild(o);});
+  ['高','中','低'].forEach((p,i)=>{
+    const g = wishlist.filter(w=>w.priority===p);
+    const el = document.getElementById(['wish-high','wish-mid','wish-low'][i]);
+    if(!g.length) { el.innerHTML=''; return; }
+    const icons = {高:'🔴',中:'🟡',低:'🟢'};
+    el.innerHTML = `<div class="section-title" style="margin-top:16px">${icons[p]} ${p}优先级</div>`
+      + g.map(w=>`<div class="wish-card">
+        <div style="flex:1">
+          <div style="font-size:13px;font-weight:500;margin-bottom:4px">${w.name}</div>
+          <div style="font-size:11px;color:#9A9088">${w.category} · ${w.type}${w.budget?' · 预算 ¥'+w.budget:''}</div>
+          ${w.note?`<div style="font-size:11px;color:#5A5248;margin-top:4px;font-style:italic">${w.note}</div>`:''}
+        </div>
+        <div style="display:flex;gap:8px;flex-shrink:0">
+          <button class="btn-secondary" onclick="promoteWish(${w.id})">入库</button>
+          <button class="btn-danger" onclick="deleteWish(${w.id})">删除</button>
+        </div>
+      </div>`).join('');
+  });
+}
+
+function deleteWish(id) {
+  wishlist = wishlist.filter(w=>w.id!==id);
+  save('wardrobe_wishlist', wishlist);
+  renderWishlist();
+}
+
+function promoteWish(id) {
+  const w = wishlist.find(x=>x.id===id);
+  if(!w) return;
+  document.getElementById('ni-name').value = w.name;
+  const catSel = document.getElementById('ni-cat');
+  catSel.value = w.category;
+  updateSubCat();
+  deleteWish(id);
+  openModal('add-item-modal');
+}
+
+function renderStats() {
+  const idle = idleItems();
+  const cards = [
+    {num: items.length, label:'总单品数'},
+    {num: `¥${totalValue().toLocaleString()}`, label:'衣橱总价值'},
+    {num: avgWear(), label:'平均穿着次数'},
+    {num: outfits.length, label:'成功搭配数'},
+    {num: idle.length, label:'闲置预警'},
+  ];
+  document.getElementById('stats-cards').innerHTML = cards.map(c=>`
+    <div class="stat-card"><div class="stat-num">${c.num}</div><div class="stat-label">${c.label}</div></div>`).join('');
+  document.getElementById('cat-breakdown').innerHTML = Object.keys(CATEGORIES).map(cat=>{
+    const count = items.filter(i=>i.category===cat).length;
+    const pct = items.length ? Math.round(count/items.length*100) : 0;
+    return `<div class="progress-row">
+      <div class="progress-label"><span>${CATEGORIES[cat].icon} ${cat}</span><span style="color:#9A9088">${count} 件</span></div>
+      <div class="bar-bg"><div class="bar-fill" style="width:${pct}%"></div></div>
+    </div>`;
+  }).join('');
+  document.getElementById('idle-list').innerHTML = idle.length
+    ? idle.map(item=>`<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #F0EDE8;font-size:12px">
+        <span>${item.name}</span><span style="color:#C0904A">${daysSince(item.lastWorn)} 天未穿</span></div>`).join('')
+    : '<div style="color:#9A9088;font-size:12px;padding:20px 0">没有闲置单品，太棒了！</div>';
+  const sorted = [...items].sort((a,b)=>b.wearCount-a.wearCount).slice(0,5);
+  document.getElementById('top-worn').innerHTML = sorted.map((item,idx)=>`
+    <div style="display:flex;align-items:center;gap:12px;padding:8px 0;border-bottom:1px solid #F0EDE8">
+      <span style="font-size:12px;color:#9A9088;width:16px">#${idx+1}</span>
+      <span style="font-size:28px">${catIcon(item.category)}</span>
+      <div style="flex:1"><div style="font-size:12px;font-weight:500">${item.name}</div><div style="font-size:11px;color:#9A9088">${item.brand||''}</div></div>
+      <div style="text-align:right"><div style="font-size:14px;font-weight:500">${item.wearCount}</div><div style="font-size:10px;color:#9A9088">次</div></div>
+      ${item.price&&item.wearCount>0?`<div style="text-align:right;min-width:50px"><div style="font-size:12px;color:#5A5248">¥${Math.round(item.price/item.wearCount)}</div><div style="font-size:10px;color:#9A9088">次均</div></div>`:''}
+    </div>`).join('');
+}
+
+// ── ADD ITEM ──
+function initAddItemModal() {
+  const catSel = document.getElementById('ni-cat');
+  catSel.innerHTML = '';
+  Object.keys(CATEGORIES).forEach(c=>{const o=document.createElement('option');o.textContent=c;catSel.appendChild(o);});
+  updateSubCat();
+  const seasonEl = document.getElementById('season-chips');
+  seasonEl.innerHTML = SEASONS.map(s=>`<button class="chip chip-inactive" onclick="toggleSeason('${s}',this)">${s}</button>`).join('');
+}
+
+function updateSubCat() {
+  const cat = document.getElementById('ni-cat').value;
+  const subSel = document.getElementById('ni-sub');
+  subSel.innerHTML = '';
+  (CATEGORIES[cat]?.sub||[]).forEach(s=>{const o=document.createElement('option');o.textContent=s;subSel.appendChild(o);});
+}
+
+function toggleSeason(s, btn) {
+  const idx = selectedSeasons.indexOf(s);
+  if(idx>-1) { selectedSeasons.splice(idx,1); btn.className='chip chip-inactive'; }
+  else { selectedSeasons.push(s); btn.className='chip chip-active'; }
+}
+
+function handleImageUpload(e) {
+  const file = e.target.files[0];
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = ev => {
+    imageDataUrl = ev.target.result;
+    const zone = document.getElementById('upload-zone');
+    zone.innerHTML = `<img src="${imageDataUrl}" alt="preview" />`;
+    zone.classList.add('has-img');
+    document.getElementById('clear-img-btn').classList.remove('hidden');
+  };
+  reader.readAsDataURL(file);
+}
+
+function clearImage() {
+  imageDataUrl = null;
+  const zone = document.getElementById('upload-zone');
+  zone.innerHTML = `<div style="font-size:28px;margin-bottom:6px">📷</div><div style="font-size:12px;color:#9A9088">点击上传照片</div><div style="font-size:11px;color:#B8B2A8;margin-top:2px">支持 JPG、PNG、WEBP</div>`;
+  zone.classList.remove('has-img');
+  document.getElementById('clear-img-btn').classList.add('hidden');
+  document.getElementById('img-upload').value = '';
+}
+
+function addItem() {
+  const name = document.getElementById('ni-name').value.trim();
+  if(!name) { alert('请填写单品名称'); return; }
+  const item = {
+    id: Date.now(),
+    name,
+    brand: document.getElementById('ni-brand').value.trim(),
+    category: document.getElementById('ni-cat').value,
+    sub: document.getElementById('ni-sub').value,
+    color: document.getElementById('ni-color').value,
+    colorName: document.getElementById('ni-color-name').value.trim(),
+    fit: document.getElementById('ni-fit').value,
+    material: document.getElementById('ni-material').value.trim(),
+    buyDate: document.getElementById('ni-date').value,
+    price: Number(document.getElementById('ni-price').value)||0,
+    washMethod: document.getElementById('ni-wash').value,
+    washNote: document.getElementById('ni-wash-note').value.trim(),
+    season: [...selectedSeasons],
+    status: '在穿',
+    wearCount: 0,
+    lastWorn: null,
+    image: imageDataUrl,
+  };
+  items.push(item);
+  save('wardrobe_items', items);
+  closeAddItem();
+  filterItems();
+  document.getElementById('wardrobe-sub').textContent = `${items.length} 件单品 · 共 ¥${totalValue().toLocaleString()}`;
+}
+
+function closeAddItem() {
+  closeModal('add-item-modal');
+  clearImage();
+  selectedSeasons = [];
+  document.getElementById('ni-name').value='';
+  document.getElementById('ni-brand').value='';
+  document.getElementById('ni-color-name').value='';
+  document.getElementById('ni-material').value='';
+  document.getElementById('ni-date').value='';
+  document.getElementById('ni-price').value='';
+  document.getElementById('ni-wash-note').value='';
+  document.getElementById('ni-color').value='#cccccc';
+  document.querySelectorAll('#season-chips .chip').forEach(b=>b.className='chip chip-inactive');
+}
+
+// ── ADD OUTFIT ──
+function openModal(id) {
+  if(id==='add-item-modal') initAddItemModal();
+  if(id==='add-outfit-modal') initOutfitModal();
+  document.getElementById(id).classList.remove('hidden');
+}
+
+function initOutfitModal() {
+  selectedOutfitItems = [];
+  const sel = document.getElementById('outfit-items-selector');
+  sel.innerHTML = items.map(it=>
+    `<button class="chip chip-inactive" onclick="toggleOutfitItem(${it.id},this)">${catIcon(it.category)} ${it.name}</button>`
+  ).join('');
+}
+
+function toggleOutfitItem(id, btn) {
+  const idx = selectedOutfitItems.indexOf(id);
+  if(idx>-1) { selectedOutfitItems.splice(idx,1); btn.className='chip chip-inactive'; }
+  else { selectedOutfitItems.push(id); btn.className='chip chip-active'; }
+}
+
+function addOutfit() {
+  const name = document.getElementById('no-name').value.trim();
+  if(!name) { alert('请填写搭配名称'); return; }
+  const tagsRaw = document.getElementById('no-tags').value.trim();
+  const outfit = {
+    id: Date.now(),
+    name,
+    scene: document.getElementById('no-scene').value,
+    rating: Number(document.getElementById('no-rating').value),
+    items: [...selectedOutfitItems],
+    note: document.getElementById('no-note').value.trim(),
+    date: new Date().toISOString().slice(0,10),
+    tags: tagsRaw ? tagsRaw.split(/[，,]/).map(t=>t.trim()).filter(Boolean) : [],
+  };
+  outfits.push(outfit);
+  save('wardrobe_outfits', outfits);
+  closeModal('add-outfit-modal');
+  document.getElementById('no-name').value='';
+  document.getElementById('no-note').value='';
+  document.getElementById('no-tags').value='';
+  renderOutfits();
+}
+
+// ── ADD WISH ──
+function addWish() {
+  const name = document.getElementById('nw-name').value.trim();
+  if(!name) { alert('请填写单品名称'); return; }
+  wishlist.push({
+    id: Date.now(),
+    name,
+    category: document.getElementById('nw-cat').value,
+    priority: document.getElementById('nw-priority').value,
+    type: document.getElementById('nw-type').value,
+    budget: Number(document.getElementById('nw-budget').value)||0,
+    note: document.getElementById('nw-note').value.trim(),
+  });
+  save('wardrobe_wishlist', wishlist);
+  closeModal('add-wish-modal');
+  document.getElementById('nw-name').value='';
+  document.getElementById('nw-budget').value='';
+  document.getElementById('nw-note').value='';
+  renderWishlist();
+}
+
+function closeModal(id) { document.getElementById(id).classList.add('hidden'); }
+
+// INIT
+renderWardrobe();
+</script>
+</body>
+</html>
