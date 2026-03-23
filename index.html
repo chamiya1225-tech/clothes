@@ -23,7 +23,7 @@
     body { font-family: 'Noto Serif SC', 'Songti SC', 'STSong', Georgia, serif; background: var(--white); color: var(--black); min-height: 100vh; -webkit-text-size-adjust: 100%; }
     input, select, button, textarea { font-family: inherit; }
     input:focus, select:focus { outline: 1.5px solid var(--black); outline-offset: 1px; }
-
+ 
     /* NAV */
     nav { border-bottom: 1px solid var(--gray-2); background: var(--white); position: sticky; top: 0; z-index: 100; }
     .nav-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: stretch; padding: 0 16px; }
@@ -31,20 +31,20 @@
     .nav-btn { flex: 1; padding: 15px 4px; border: none; background: none; cursor: pointer; font-size: 10px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: var(--gray-3); border-bottom: 1.5px solid transparent; transition: all 0.2s; font-family: 'Noto Serif SC', 'Songti SC', serif; }
     .nav-btn.active { color: var(--black); border-bottom-color: var(--black); }
     .nav-btn:hover:not(.active) { color: var(--gray-4); }
-
+ 
     /* MAIN */
     main { max-width: 1200px; margin: 0 auto; padding: 20px 16px; }
     .page-header { margin-bottom: 20px; }
     .page-title { font-family: 'Playfair Display', Georgia, serif; font-size: 26px; font-weight: 400; letter-spacing: -0.01em; margin-bottom: 4px; }
     .page-title em { font-style: italic; color: var(--gray-4); }
     .page-sub { font-size: 12px; color: var(--gray-3); letter-spacing: 0.1em; text-transform: uppercase; font-family: 'Playfair Display', Georgia, serif; }
-
+ 
     /* GRID */
     .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
     .outfit-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
     .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
     .three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
-
+ 
     /* CARDS */
     .card { background: var(--white); border: 1px solid var(--gray-2); border-radius: var(--r); overflow: hidden; cursor: pointer; transition: all 0.25s; position: relative; }
     .card:hover { border-color: var(--black); transform: translateY(-2px); box-shadow: 0 8px 32px rgba(0,0,0,0.08); }
@@ -54,13 +54,13 @@
     .card-name { font-size: 12px; font-weight: 500; margin-bottom: 2px; line-height: 1.4; letter-spacing: 0.02em; }
     .card-brand { font-size: 11px; color: var(--gray-3); letter-spacing: 0.06em; text-transform: uppercase; font-family: 'Playfair Display', Georgia, serif; }
     .idle-badge { position: absolute; top: 8px; left: 8px; background: var(--black); color: var(--white); padding: 3px 8px; font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; border-radius: var(--r); }
-
+ 
     /* CHIPS */
     .chip { padding: 6px 14px; font-size: 11px; cursor: pointer; transition: all 0.18s; letter-spacing: 0.05em; text-transform: uppercase; font-weight: 500; border-radius: var(--r); }
     .chip-active { border: 1.5px solid var(--black); background: var(--black); color: var(--white); }
     .chip-inactive { border: 1px solid var(--gray-2); background: transparent; color: var(--gray-4); }
     .chip-inactive:hover { border-color: var(--gray-4); }
-
+ 
     /* BUTTONS */
     .btn-primary { padding: 10px 20px; border: none; background: var(--black); color: var(--white); font-size: 11px; font-weight: 500; cursor: pointer; letter-spacing: 0.1em; text-transform: uppercase; transition: opacity 0.2s; border-radius: var(--r); }
     .btn-primary:hover { opacity: 0.8; }
@@ -68,21 +68,21 @@
     .btn-secondary:hover { border-color: var(--black); color: var(--black); }
     .btn-danger { padding: 8px 14px; border: 1px solid #E8B8B5; background: transparent; color: var(--danger); font-size: 11px; cursor: pointer; letter-spacing: 0.06em; border-radius: var(--r); }
     .btn-sm { padding: 7px 14px; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 500; }
-
+ 
     /* MODALS */
     .modal-overlay { position: fixed; inset: 0; background: rgba(10,10,10,0.6); z-index: 200; display: flex; align-items: flex-end; justify-content: center; padding: 0; backdrop-filter: blur(4px); }
     .modal-box { background: var(--white); padding: 24px 20px 36px; max-width: 540px; width: 100%; max-height: 90vh; overflow-y: auto; border: 1px solid var(--gray-2); border-radius: var(--r-lg) var(--r-lg) 0 0; }
     .modal-title { font-family: 'Playfair Display', Georgia, serif; font-size: 20px; font-weight: 400; margin-bottom: 20px; letter-spacing: 0.02em; }
-
+ 
     /* FORM */
     .label { display: block; font-size: 10px; font-weight: 500; color: var(--gray-3); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 6px; margin-top: 16px; }
     .input { width: 100%; padding: 11px 12px; border: 1px solid var(--gray-2); font-size: 16px; background: var(--white); box-sizing: border-box; transition: border-color 0.2s; border-radius: var(--r); -webkit-appearance: none; }
     .input:focus { border-color: var(--black); }
     .select { width: 100%; padding: 11px 12px; border: 1px solid var(--gray-2); font-size: 16px; background: var(--white); box-sizing: border-box; border-radius: var(--r); -webkit-appearance: none; }
-
+ 
     /* SECTION TITLE */
     .section-title { font-size: 10px; font-weight: 500; letter-spacing: 0.15em; color: var(--gray-3); margin: 0 0 14px; text-transform: uppercase; font-family: 'Playfair Display', Georgia, serif; }
-
+ 
     /* OUTFIT CARDS */
     .outfit-grid { display: flex; flex-direction: column; gap: 10px; }
     .outfit-card { background: var(--white); border: 1px solid var(--gray-2); border-radius: var(--r); cursor: pointer; transition: all 0.25s; overflow: hidden; display: flex; flex-direction: row; align-items: stretch; min-height: 88px; }
@@ -90,31 +90,31 @@
     .outfit-card-img { width: 88px; flex-shrink: 0; background: var(--gray-1); display: flex; align-items: center; justify-content: center; font-size: 28px; overflow: hidden; align-self: stretch; }
     .outfit-card-img img { width: 100%; height: 100%; object-fit: cover; }
     .outfit-card-body { padding: 12px 14px; flex: 1; min-width: 0; display: flex; flex-direction: column; justify-content: flex-start; }
-
+ 
     /* WISH CARDS */
     .wish-card { background: var(--white); border: 1px solid var(--gray-2); border-radius: var(--r); padding: 16px 18px; display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 8px; }
-
+ 
     /* BADGES */
     .badge { display: inline-block; padding: 3px 10px; font-size: 10px; margin-right: 4px; margin-top: 4px; letter-spacing: 0.06em; border-radius: var(--r); }
-
+ 
     /* INFO CELLS */
     .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 16px; }
     .info-cell { background: var(--gray-1); border-radius: var(--r); padding: 10px 12px; }
     .info-key { font-size: 9px; font-weight: 500; color: var(--gray-3); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 4px; font-family: 'Playfair Display', Georgia, serif; }
     .info-val { font-size: 13px; color: var(--black); }
-
+ 
     /* STATS */
     .stat-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 24px; }
     .stat-card { background: var(--gray-1); border: 1px solid var(--gray-2); border-radius: var(--r); padding: 16px 18px; }
     .stat-num { font-family: 'Playfair Display', Georgia, serif; font-size: 28px; font-weight: 400; letter-spacing: -0.02em; margin-bottom: 6px; line-height: 1; }
     .stat-label { font-size: 10px; font-weight: 500; color: var(--gray-3); letter-spacing: 0.1em; text-transform: uppercase; line-height: 1.4; font-family: 'Playfair Display', Georgia, serif; }
-
+ 
     /* BARS */
     .bar-bg { height: 2px; background: var(--gray-2); border-radius: 1px; }
     .bar-fill { height: 100%; background: var(--black); border-radius: 1px; transition: width 0.6s cubic-bezier(0.4,0,0.2,1); }
     .progress-row { margin-bottom: 14px; }
     .progress-label { display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 6px; }
-
+ 
     /* UPLOAD */
     .upload-zone { width: 100%; border: 1.5px dashed var(--gray-2); border-radius: var(--r-md); overflow: hidden; display: flex; flex-direction: column; align-items: center; justify-content: center; background: var(--gray-1); cursor: pointer; transition: border-color 0.2s; height: 120px; }
     .upload-zone:hover { border-color: var(--gray-4); }
@@ -122,7 +122,7 @@
     .upload-zone img { width: 100%; max-height: 200px; object-fit: cover; display: block; }
     .upload-wrap { position: relative; }
     .upload-clear { position: absolute; top: 8px; right: 8px; background: var(--black); color: var(--white); border: none; border-radius: 50%; width: 24px; height: 24px; cursor: pointer; font-size: 11px; display: flex; align-items: center; justify-content: center; }
-
+ 
     /* MISC */
     .row { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 20px; align-items: center; }
     .chips-wrap { display: flex; flex-wrap: wrap; gap: 6px; }
@@ -130,16 +130,16 @@
     .color-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; border: 1px solid rgba(0,0,0,0.15); margin-right: 5px; vertical-align: middle; flex-shrink: 0; }
     .hidden { display: none; }
     .divider { border: none; border-top: 1px solid var(--gray-2); margin: 20px 0; }
-
+ 
     /* CROP */
     #crop-box { border: 1.5px solid #fff; }
     #crop-handle-br { background: #fff; }
-
+ 
     /* SCROLL */
     ::-webkit-scrollbar { width: 4px; }
     ::-webkit-scrollbar-track { background: transparent; }
     ::-webkit-scrollbar-thumb { background: var(--gray-2); border-radius: 2px; }
-
+ 
     /* DESKTOP */
     @media (min-width: 640px) {
       .nav-logo { font-size: 20px; padding: 18px 24px 18px 0; }
@@ -164,7 +164,7 @@
   </style>
 </head>
 <body>
-
+ 
 <nav>
   <div class="nav-inner">
     <div class="nav-logo">CLOSET</div>
@@ -174,7 +174,7 @@
     <button class="nav-btn" onclick="showPage('stats')">数据看板</button>
   </div>
 </nav>
-
+ 
 <main>
   <div id="page-wardrobe">
     <div class="page-header">
@@ -190,7 +190,7 @@
     <div class="grid" id="items-grid"></div>
     <div id="no-items" class="hidden" style="text-align:center;padding:60px 0;color:#9A9088;font-size:13px">没有找到单品，快去添加吧 ✦</div>
   </div>
-
+ 
   <div id="page-outfits" class="hidden">
     <div class="page-header">
       <div class="page-title">搭配 <em>Looks</em></div>
@@ -202,7 +202,7 @@
     </div>
     <div class="outfit-grid" id="outfits-grid"></div>
   </div>
-
+ 
   <div id="page-wishlist" class="hidden">
     <div class="page-header">
       <div class="page-title">心愿 <em>Wishlist</em></div>
@@ -215,11 +215,23 @@
     <div id="wish-mid"></div>
     <div id="wish-low"></div>
   </div>
-
+ 
   <div id="page-stats" class="hidden">
     <div class="page-header">
       <div class="page-title">数据 <em>Insights</em></div>
       <div class="page-sub">了解你的衣橱构成</div>
+    </div>
+ 
+    <div style="background:var(--gray-1);border:1px solid var(--gray-2);border-radius:var(--r);padding:16px 18px;margin-bottom:20px">
+      <div style="font-size:11px;font-weight:500;margin-bottom:4px">数据备份 · Data Backup</div>
+      <div style="font-size:11px;color:var(--gray-4);margin-bottom:12px">导出数据可保存到手机，换设备或换平台后导入即可恢复所有单品和搭配记录</div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <button class="btn-primary" onclick="exportData()">⬇ 导出数据</button>
+        <label class="btn-secondary" style="cursor:pointer;display:inline-flex;align-items:center">
+          ⬆ 导入数据
+          <input type="file" accept=".json" onchange="importData(event)" style="display:none" />
+        </label>
+      </div>
     </div>
     <div class="stat-row" id="stats-cards"></div>
     <div class="two-col" style="gap:16px;margin-bottom:24px">
@@ -238,7 +250,7 @@
     </div>
   </div>
 </main>
-
+ 
 <!-- ITEM DETAIL MODAL -->
 <div id="item-detail-modal" class="modal-overlay hidden" onclick="closeModal('item-detail-modal')">
   <div class="modal-box" onclick="event.stopPropagation()">
@@ -272,7 +284,7 @@
     </div>
   </div>
 </div>
-
+ 
 <!-- OUTFIT DETAIL MODAL -->
 <div id="outfit-detail-modal" class="modal-overlay hidden" onclick="closeModal('outfit-detail-modal')">
   <div class="modal-box" onclick="event.stopPropagation()">
@@ -291,12 +303,12 @@
     </div>
   </div>
 </div>
-
+ 
 <!-- ADD / EDIT ITEM MODAL -->
 <div id="add-item-modal" class="modal-overlay hidden" onclick="closeModal('add-item-modal')">
   <div class="modal-box" onclick="event.stopPropagation()">
     <div class="modal-title" id="add-item-title">添加单品</div>
-
+ 
     <div class="label">单品照片</div>
     <div class="upload-wrap">
       <label for="img-upload" style="display:block;cursor:pointer">
@@ -309,7 +321,7 @@
       <input id="img-upload" type="file" accept="image/*" style="display:none" onchange="handleImageUpload(event,'item')" />
       <button id="clear-img-btn" class="upload-clear hidden" onclick="clearImage()">✕</button>
     </div>
-
+ 
     <div class="label">单品名称 *</div>
     <input class="input" id="ni-name" placeholder="如：拉夫劳伦白色针织衫" />
     <div class="label">品牌</div>
@@ -371,7 +383,7 @@
     </div>
   </div>
 </div>
-
+ 
 <!-- ADD OUTFIT MODAL -->
 <div id="add-outfit-modal" class="modal-overlay hidden" onclick="closeModal('add-outfit-modal')">
   <div class="modal-box" onclick="event.stopPropagation()">
@@ -415,7 +427,7 @@
     </div>
   </div>
 </div>
-
+ 
 <!-- ADD WISH MODAL -->
 <div id="add-wish-modal" class="modal-overlay hidden" onclick="closeModal('add-wish-modal')">
   <div class="modal-box" onclick="event.stopPropagation()">
@@ -450,7 +462,7 @@
     </div>
   </div>
 </div>
-
+ 
 <!-- CROP MODAL -->
 <div id="crop-modal" class="modal-overlay hidden" onclick="cancelCrop()">
   <div class="modal-box" style="max-width:480px" onclick="event.stopPropagation()">
@@ -467,7 +479,7 @@
     </div>
   </div>
 </div>
-
+ 
 <script>
 const CATEGORIES = {
   上衣: { icon:"👕", sub:["打底衫","T恤/短袖","衬衫","针织衫","卫衣","马甲/背心","特殊款","其他"] },
@@ -481,7 +493,7 @@ const CATEGORIES = {
 };
 const SCENES = ["日常校园","通勤/正式","聚会/约会","旅行","运动健身","居家","特殊活动"];
 const SEASONS = ["春","夏","秋","冬","四季"];
-
+ 
 const INIT_ITEMS = [
   {id:1,name:"拉夫劳伦白色针织衫",brand:"Ralph Lauren",category:"上衣",sub:"针织衫",color:"#F5F5F0",colorName:"白色",season:["春","秋"],material:"棉",fit:"标准",buyDate:"2023-09",price:850,wearCount:12,lastWorn:"2024-03-20",status:"在穿",washMethod:"手洗",washNote:"冷水手洗，平铺晾干",image:null},
   {id:2,name:"美津浓绿野仙踪",brand:"Mizuno",category:"鞋子",sub:"运动鞋",color:"#7A9E7E",colorName:"绿色",season:["四季"],material:"网布/橡胶",fit:"标准",buyDate:"2024-01",price:699,wearCount:45,lastWorn:"2024-03-25",status:"在穿",washMethod:"手洗",washNote:"湿布擦拭，避免泡水",image:null},
@@ -501,14 +513,14 @@ const INIT_WISHLIST = [
   {id:2,name:"中长款半身裙（卡其色）",category:"裙子",priority:"中",type:"需求型",budget:400,note:"填补中裙缺口"},
   {id:3,name:"中长吊坠项链",category:"饰品",priority:"高",type:"需求型",budget:300,note:"和珍珠细链叠戴，娜娜风"},
 ];
-
+ 
 function load(key, def) {
   try { const v = localStorage.getItem(key); return v ? JSON.parse(v) : def; } catch { return def; }
 }
 function save(key, val) {
   try { localStorage.setItem(key, JSON.stringify(val)); } catch {}
 }
-
+ 
 let items = load('wardrobe_items', INIT_ITEMS);
 let outfits = load('wardrobe_outfits', INIT_OUTFITS);
 let wishlist = load('wardrobe_wishlist', INIT_WISHLIST);
@@ -522,13 +534,13 @@ let currentItemId = null;
 let currentOutfitId = null;
 let imageDataUrl = null;
 let editingItemId = null;
-
+ 
 function daysSince(d) { if(!d) return 999; return Math.floor((Date.now()-new Date(d))/86400000); }
 function catIcon(c) { return CATEGORIES[c]?.icon || '📦'; }
 function totalValue() { return items.reduce((a,b)=>a+(Number(b.price)||0),0); }
 function avgWear() { return items.length ? Math.round(items.reduce((a,b)=>a+b.wearCount,0)/items.length) : 0; }
 function idleItems() { return items.filter(i=>daysSince(i.lastWorn)>60); }
-
+ 
 function showPage(p) {
   currentPage = p;
   ['wardrobe','outfits','wishlist','stats'].forEach(pg => {
@@ -542,13 +554,13 @@ function showPage(p) {
   if(p==='wishlist') renderWishlist();
   if(p==='stats') renderStats();
 }
-
+ 
 function renderWardrobe() {
   document.getElementById('wardrobe-sub').textContent = `${items.length} 件单品 · 共 ¥${totalValue().toLocaleString()}`;
   renderCatFilters();
   filterItems();
 }
-
+ 
 function renderCatFilters() {
   const el = document.getElementById('cat-filters');
   const cats = ['全部', ...Object.keys(CATEGORIES)];
@@ -557,7 +569,7 @@ function renderCatFilters() {
     return `<button class="chip ${selectedCat===c?'chip-active':'chip-inactive'}" onclick="selectCat('${c}')">${icon} ${c}</button>`;
   }).join('');
 }
-
+ 
 function selectCat(c) {
   selectedCat = c; selectedSub = '全部';
   renderCatFilters();
@@ -572,7 +584,7 @@ function selectCat(c) {
   }
   filterItems();
 }
-
+ 
 function selectSub(s) {
   selectedSub = s;
   document.getElementById('sub-filters').querySelectorAll('.chip').forEach((btn,i) => {
@@ -581,7 +593,7 @@ function selectSub(s) {
   });
   filterItems();
 }
-
+ 
 function filterItems() {
   const search = document.getElementById('search-input').value.toLowerCase();
   const filtered = items.filter(i => {
@@ -620,7 +632,7 @@ function filterItems() {
     </div>`;
   }).join('');
 }
-
+ 
 function openItemDetail(id) {
   const item = items.find(i=>i.id===id);
   if(!item) return;
@@ -652,7 +664,7 @@ function openItemDetail(id) {
     : '';
   openModal('item-detail-modal');
 }
-
+ 
 function deleteCurrentItem() {
   if(!currentItemId) return;
   items = items.filter(i=>i.id!==currentItemId);
@@ -661,7 +673,7 @@ function deleteCurrentItem() {
   filterItems();
   document.getElementById('wardrobe-sub').textContent = `${items.length} 件单品 · 共 ¥${totalValue().toLocaleString()}`;
 }
-
+ 
 function markWornToday() {
   const today = new Date().toISOString().slice(0,10);
   items = items.map(i => i.id === currentItemId ? { ...i, lastWorn: today } : i);
@@ -673,7 +685,7 @@ function markWornToday() {
   btn.style.background = '#7A9E7E';
   setTimeout(() => { btn.textContent = '今天穿了 ✓'; btn.style.background = ''; }, 1500);
 }
-
+ 
 function renderOutfits() {
   document.getElementById('outfits-sub').textContent = `${outfits.length} 套造型记录`;
   const sceneEl = document.getElementById('scene-filters');
@@ -705,12 +717,12 @@ function renderOutfits() {
     </div>`;
   }).join('');
 }
-
+ 
 function selectScene(sc) {
   selectedScene = sc;
   renderOutfits();
 }
-
+ 
 function openOutfitDetail(id) {
   const o = outfits.find(x=>x.id===id);
   if(!o) return;
@@ -729,14 +741,14 @@ function openOutfitDetail(id) {
   document.getElementById('od-tags').innerHTML = (o.tags||[]).map(t=>`<span class="badge" style="background:#EAF0E8">#${t}</span>`).join('');
   openModal('outfit-detail-modal');
 }
-
+ 
 function deleteCurrentOutfit() {
   outfits = outfits.filter(o=>o.id!==currentOutfitId);
   save('wardrobe_outfits', outfits);
   closeModal('outfit-detail-modal');
   renderOutfits();
 }
-
+ 
 function renderWishlist() {
   document.getElementById('wishlist-sub').textContent = `${wishlist.length} 件待购 · 预算 ¥${wishlist.reduce((a,b)=>a+(Number(b.budget)||0),0).toLocaleString()}`;
   const nwCat = document.getElementById('nw-cat');
@@ -760,13 +772,13 @@ function renderWishlist() {
       </div>`).join('');
   });
 }
-
+ 
 function deleteWish(id) {
   wishlist = wishlist.filter(w=>w.id!==id);
   save('wardrobe_wishlist', wishlist);
   renderWishlist();
 }
-
+ 
 function promoteWish(id) {
   const w = wishlist.find(x=>x.id===id);
   if(!w) return;
@@ -777,7 +789,7 @@ function promoteWish(id) {
   deleteWish(id);
   openModal('add-item-modal');
 }
-
+ 
 function renderStats() {
   const idle = idleItems();
   const recentlyWorn = items.filter(i=>i.lastWorn).sort((a,b)=>new Date(b.lastWorn)-new Date(a.lastWorn));
@@ -815,7 +827,7 @@ function renderStats() {
     </div>`).join('')
     : '<div style="color:#9A9088;font-size:12px;padding:20px 0">还没有穿着记录，点开单品点「今天穿了」开始记录吧～</div>';
 }
-
+ 
 // ── ADD ITEM ──
 function initAddItemModal() {
   const catSel = document.getElementById('ni-cat');
@@ -825,24 +837,24 @@ function initAddItemModal() {
   const seasonEl = document.getElementById('season-chips');
   seasonEl.innerHTML = SEASONS.map(s=>`<button class="chip chip-inactive" onclick="toggleSeason('${s}',this)">${s}</button>`).join('');
 }
-
+ 
 function updateSubCat() {
   const cat = document.getElementById('ni-cat').value;
   const subSel = document.getElementById('ni-sub');
   subSel.innerHTML = '';
   (CATEGORIES[cat]?.sub||[]).forEach(s=>{const o=document.createElement('option');o.textContent=s;subSel.appendChild(o);});
 }
-
+ 
 function toggleSeason(s, btn) {
   const idx = selectedSeasons.indexOf(s);
   if(idx>-1) { selectedSeasons.splice(idx,1); btn.className='chip chip-inactive'; }
   else { selectedSeasons.push(s); btn.className='chip chip-active'; }
 }
-
+ 
 let cropTarget = 'item'; // 'item' or 'outfit'
 let outfitImageDataUrl = null;
 let cropState = { startX:0, startY:0, x:0, y:0, size:100, dragging:false, resizing:false };
-
+ 
 function handleImageUpload(e, target) {
   const file = e.target.files[0];
   if (!file) return;
@@ -851,14 +863,14 @@ function handleImageUpload(e, target) {
   reader.onload = ev => openCropModal(ev.target.result);
   reader.readAsDataURL(file);
 }
-
+ 
 function openCropModal(src) {
   document.getElementById('crop-modal').classList.remove('hidden');
   const img = document.getElementById('crop-img');
   img.onload = () => initCropBox();
   img.src = src;
 }
-
+ 
 function initCropBox() {
   const img = document.getElementById('crop-img');
   const container = document.getElementById('crop-container');
@@ -869,7 +881,7 @@ function initCropBox() {
   cropState = { x, y, size, dragging:false, resizing:false, startX:0, startY:0, startSize:size };
   updateCropBox();
 }
-
+ 
 function updateCropBox() {
   const { x, y, size } = cropState;
   const box = document.getElementById('crop-box');
@@ -881,19 +893,19 @@ function updateCropBox() {
   handle.style.left = (x + size) + 'px';
   handle.style.top = (y + size) + 'px';
 }
-
+ 
 function getEventPos(e, container) {
   const rect = container.getBoundingClientRect();
   const src = e.touches ? e.touches[0] : e;
   return { x: src.clientX - rect.left, y: src.clientY - rect.top };
 }
-
+ 
 document.addEventListener('DOMContentLoaded', () => {
   const box = document.getElementById('crop-box');
   const handle = document.getElementById('crop-handle-br');
   const container = document.getElementById('crop-container');
   const img = document.getElementById('crop-img');
-
+ 
   function startDrag(e) {
     e.preventDefault();
     cropState.dragging = true;
@@ -931,7 +943,7 @@ document.addEventListener('DOMContentLoaded', () => {
     updateCropBox();
   }
   function onEnd() { cropState.dragging = false; cropState.resizing = false; }
-
+ 
   box.addEventListener('mousedown', startDrag);
   box.addEventListener('touchstart', startDrag, { passive:false });
   handle.addEventListener('mousedown', startResize);
@@ -941,7 +953,7 @@ document.addEventListener('DOMContentLoaded', () => {
   document.addEventListener('mouseup', onEnd);
   document.addEventListener('touchend', onEnd);
 });
-
+ 
 function confirmCrop() {
   const img = document.getElementById('crop-img');
   const { x, y, size } = cropState;
@@ -957,7 +969,7 @@ function confirmCrop() {
   ctx.drawImage(img, x * scaleX, y * scaleY, size * scaleX, size * scaleY, 0, 0, outputSize, outputSize);
   const result = canvas.toDataURL('image/jpeg', 0.95);
   document.getElementById('crop-modal').classList.add('hidden');
-
+ 
   if (cropTarget === 'item') {
     imageDataUrl = result;
     const zone = document.getElementById('upload-zone');
@@ -974,13 +986,13 @@ function confirmCrop() {
     document.getElementById('outfit-img-upload').value = '';
   }
 }
-
+ 
 function cancelCrop() {
   document.getElementById('crop-modal').classList.add('hidden');
   document.getElementById('img-upload').value = '';
   document.getElementById('outfit-img-upload').value = '';
 }
-
+ 
 function clearImage() {
   imageDataUrl = null;
   const zone = document.getElementById('upload-zone');
@@ -989,7 +1001,7 @@ function clearImage() {
   document.getElementById('clear-img-btn').classList.add('hidden');
   document.getElementById('img-upload').value = '';
 }
-
+ 
 function clearOutfitImage() {
   outfitImageDataUrl = null;
   const zone = document.getElementById('outfit-upload-zone');
@@ -998,7 +1010,7 @@ function clearOutfitImage() {
   document.getElementById('clear-outfit-img-btn').classList.add('hidden');
   document.getElementById('outfit-img-upload').value = '';
 }
-
+ 
 function addItem() {
   const name = document.getElementById('ni-name').value.trim();
   if(!name) { alert('请填写单品名称'); return; }
@@ -1031,7 +1043,7 @@ function addItem() {
   filterItems();
   document.getElementById('wardrobe-sub').textContent = `${items.length} 件单品 · 共 ¥${totalValue().toLocaleString()}`;
 }
-
+ 
 function closeAddItem() {
   closeModal('add-item-modal');
   editingItemId = null;
@@ -1049,31 +1061,31 @@ function closeAddItem() {
   document.getElementById('ni-color').value='#cccccc';
   document.querySelectorAll('#season-chips .chip').forEach(b=>b.className='chip chip-inactive');
 }
-
+ 
 // ── ADD OUTFIT ──
 function openEditItem() {
   const item = items.find(i => i.id === currentItemId);
   if (!item) return;
   editingItemId = currentItemId;
   closeModal('item-detail-modal');
-
+ 
   // 手动初始化大类下拉（不重置值）
   const catSel = document.getElementById('ni-cat');
   if (!catSel.children.length) {
     Object.keys(CATEGORIES).forEach(c => { const o = document.createElement('option'); o.textContent = c; catSel.appendChild(o); });
   }
-
+ 
   // 先设大类，再生成小类列表，再设小类
   catSel.value = item.category || '上衣';
   const subSel = document.getElementById('ni-sub');
   subSel.innerHTML = '';
   (CATEGORIES[catSel.value]?.sub || []).forEach(s => { const o = document.createElement('option'); o.textContent = s; subSel.appendChild(o); });
   subSel.value = item.sub || '';
-
+ 
   // 初始化季节chips
   const seasonEl = document.getElementById('season-chips');
   seasonEl.innerHTML = SEASONS.map(s => `<button class="chip chip-inactive" onclick="toggleSeason('${s}',this)">${s}</button>`).join('');
-
+ 
   document.getElementById('add-item-title').textContent = '编辑单品';
   document.getElementById('add-item-btn').textContent = '保存';
   document.getElementById('ni-name').value = item.name || '';
@@ -1099,34 +1111,34 @@ function openEditItem() {
   }
   openModal('add-item-modal');
 }
-
+ 
 function openModal(id) {
   if(id==='add-item-modal' && !editingItemId) initAddItemModal();
   if(id==='add-outfit-modal' && !editingOutfitId) initOutfitModal();
   document.getElementById(id).classList.remove('hidden');
 }
-
+ 
 let editingOutfitId = null;
-
+ 
 function openEditOutfit() {
   const o = outfits.find(x => x.id === currentOutfitId);
   if (!o) return;
   editingOutfitId = currentOutfitId;
   closeModal('outfit-detail-modal');
-
+ 
   // init scene select if empty
   const sceneEl = document.getElementById('no-scene');
   if (!sceneEl.children.length) {
     SCENES.forEach(sc => { const opt = document.createElement('option'); opt.textContent = sc; sceneEl.appendChild(opt); });
   }
-
+ 
   // init items selector with current outfit's items pre-selected
   selectedOutfitItems = [...(o.items || [])];
   const sel = document.getElementById('outfit-items-selector');
   sel.innerHTML = items.map(it =>
     `<button class="chip ${selectedOutfitItems.includes(it.id) ? 'chip-active' : 'chip-inactive'}" onclick="toggleOutfitItem(${it.id},this)">${catIcon(it.category)} ${it.name}</button>`
   ).join('');
-
+ 
   // fill in values
   document.getElementById('add-outfit-title').textContent = '编辑搭配';
   document.getElementById('add-outfit-btn').textContent = '保存修改';
@@ -1135,7 +1147,7 @@ function openEditOutfit() {
   document.getElementById('no-rating').value = o.rating || 5;
   document.getElementById('no-note').value = o.note || '';
   document.getElementById('no-tags').value = (o.tags || []).join('、');
-
+ 
   // fill image if exists
   if (o.image) {
     outfitImageDataUrl = o.image;
@@ -1144,10 +1156,10 @@ function openEditOutfit() {
     zone.classList.add('has-img');
     document.getElementById('clear-outfit-img-btn').classList.remove('hidden');
   }
-
+ 
   document.getElementById('add-outfit-modal').classList.remove('hidden');
 }
-
+ 
 function initOutfitModal() {
   selectedOutfitItems = [];
   const sel = document.getElementById('outfit-items-selector');
@@ -1155,13 +1167,13 @@ function initOutfitModal() {
     `<button class="chip chip-inactive" onclick="toggleOutfitItem(${it.id},this)">${catIcon(it.category)} ${it.name}</button>`
   ).join('');
 }
-
+ 
 function toggleOutfitItem(id, btn) {
   const idx = selectedOutfitItems.indexOf(id);
   if(idx>-1) { selectedOutfitItems.splice(idx,1); btn.className='chip chip-inactive'; }
   else { selectedOutfitItems.push(id); btn.className='chip chip-active'; }
 }
-
+ 
 function addOutfit() {
   const name = document.getElementById('no-name').value.trim();
   if(!name) { alert('请填写搭配名称'); return; }
@@ -1191,7 +1203,7 @@ function addOutfit() {
   clearOutfitImage();
   renderOutfits();
 }
-
+ 
 // ── ADD WISH ──
 function addWish() {
   const name = document.getElementById('nw-name').value.trim();
@@ -1212,11 +1224,58 @@ function addWish() {
   document.getElementById('nw-note').value='';
   renderWishlist();
 }
-
+ 
+function exportData() {
+  const data = {
+    version: 1,
+    exportDate: new Date().toISOString().slice(0,10),
+    items,
+    outfits,
+    wishlist,
+  };
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `CLOSET-backup-${data.exportDate}.json`;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+ 
+function importData(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = ev => {
+    try {
+      const data = JSON.parse(ev.target.result);
+      if (!data.items || !data.outfits || !data.wishlist) {
+        alert('文件格式不正确，请使用 CLOSET 导出的备份文件');
+        return;
+      }
+      if (!confirm(`确认导入？\n将覆盖当前数据：${data.items.length} 件单品、${data.outfits.length} 套搭配、${data.wishlist.length} 件心愿单\n导出日期：${data.exportDate || '未知'}`)) return;
+      items = data.items;
+      outfits = data.outfits;
+      wishlist = data.wishlist;
+      save('wardrobe_items', items);
+      save('wardrobe_outfits', outfits);
+      save('wardrobe_wishlist', wishlist);
+      alert('导入成功！');
+      renderStats();
+      renderWardrobe();
+    } catch {
+      alert('文件读取失败，请确认是正确的备份文件');
+    }
+  };
+  reader.readAsText(file);
+  e.target.value = '';
+}
+ 
 function closeModal(id) { document.getElementById(id).classList.add('hidden'); }
-
+ 
 // INIT
 renderWardrobe();
 </script>
 </body>
 </html>
+ 
